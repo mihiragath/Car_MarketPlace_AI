@@ -1,6 +1,6 @@
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider, SignIn } from "@clerk/nextjs";
 import Header from "@/components/header";
 
 const inter = Inter({ subsets: ["latin"] });
