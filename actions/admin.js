@@ -13,7 +13,7 @@ export async function getAdmin() {
     where: { clerkUserId: userId },
   });
 
-  if (!user || !user.role == "ADMIN") {
+  if (!user || user.role !== "ADMIN") {
     return { authenticated: false, reason: "Not an admin" };
   }
 
