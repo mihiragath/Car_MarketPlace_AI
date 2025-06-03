@@ -7,7 +7,8 @@ const isProtectedRoute = createRouteMatcher([
   "/reservations(.*)",
 ]);
 
-export default clerkMiddleware(async (auth, req) => {
+// Create base Clerk middleware
+const clerk = clerkMiddleware(async (auth, req) => {
   const { userId } = await auth();
 
   if (!userId && isProtectedRoute(req)) {
@@ -17,6 +18,8 @@ export default clerkMiddleware(async (auth, req) => {
 
   return NextResponse.next();
 });
+
+export default clerk;
 
 export const config = {
   matcher: [

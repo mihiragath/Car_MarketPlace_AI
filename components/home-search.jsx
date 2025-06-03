@@ -5,14 +5,15 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Camera, Upload } from "lucide-react";
 import { useDropzone } from "react-dropzone";
-import { toast } from "./ui/sonner";
+import { toast } from "sonner";
 
 const HomeSearch = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isImageSearchActive, setIsImageSearchActive] = useState(false);
   const [imagePreview, setImagePreview] = useState("");
   const [searchImage, setSearchImage] = useState(null);
-  const [isUploding, setIsUploading] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const onDrop = (acceptedFiles) => {
     const file = acceptedFiles[0];
@@ -49,7 +50,7 @@ const HomeSearch = () => {
     });
 
   // Handle text search submissions
-  const handleTextSearch = (e) => {
+  const handleTextSubmit = (e) => {
     e.preventDefault();
     if (!searchTerm.trim()) {
       toast.error("Please enter a search term");
