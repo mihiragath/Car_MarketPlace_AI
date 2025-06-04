@@ -1,20 +1,57 @@
 "use client";
 
-import React, { useState } from "react";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { Camera, Upload } from "lucide-react";
-import { useDropzone } from "react-dropzone";
+import { useState, useEffect } from "react";
+import { Search, Upload, Camera } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { useDropzone } from "react-dropzone";
+import { useRouter } from "next/navigation";
+import { processImageSearch } from "@/actions/home";
+import useFetch from "@/hooks/use-fetch";
 
-const HomeSearch = () => {
+export function HomeSearch() {
+  const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
-  const [isImageSearchActive, setIsImageSearchActive] = useState(false);
-  const [imagePreview, setImagePreview] = useState("");
   const [searchImage, setSearchImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
   const [isUploading, setIsUploading] = useState(false);
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [isImageSearchActive, setIsImageSearchActive] = useState(false);
 
+  // Use the useFetch hook for image processing
+  const {
+    loading: isProcessing,
+    fn: processImageFn,
+    data: processResult,
+    error: processError,
+  } = useFetch(processImageSearch);
+
+  // Handle process result and errors with useEffect
+  useEffect(() => {
+    if (processResult?.success) {
+      const params = new URLSearchParams();
+
+      // Add extracted params to the search
+      if (processResult.data.make) params.set("make", processResult.data.make);
+      if (processResult.data.bodyType)
+        params.set("bodyType", processResult.data.bodyType);
+      if (processResult.data.color)
+        params.set("color", processResult.data.color);
+
+      // Redirect to search results
+      router.push(`/cars?${params.toString()}`);
+    }
+  }, [processResult, router]);
+
+  useEffect(() => {
+    if (processError) {
+      toast.error(
+        "Failed to analyze image: " + (processError.message || "Unknown error")
+      );
+    }
+  }, [processError]);
+
+  // Handle image upload with react-dropzone
   const onDrop = (acceptedFiles) => {
     const file = acceptedFiles[0];
     if (file) {
@@ -50,7 +87,7 @@ const HomeSearch = () => {
     });
 
   // Handle text search submissions
-  const handleTextSubmit = (e) => {
+  const handleTextSearch = (e) => {
     e.preventDefault();
     if (!searchTerm.trim()) {
       toast.error("Please enter a search term");
@@ -74,8 +111,9 @@ const HomeSearch = () => {
 
   return (
     <div>
-      <form onSubmit={handleTextSubmit}>
+      <form onSubmit={handleTextSearch}>
         <div className="relative flex items-center">
+          <Search className="absolute left-3 w-5 h-5" />
           <Input
             type="text"
             placeholder="Enter make, model, or use our AI Image Search..."
@@ -164,6 +202,4 @@ const HomeSearch = () => {
       )}
     </div>
   );
-};
-
-export default HomeSearch;
+}

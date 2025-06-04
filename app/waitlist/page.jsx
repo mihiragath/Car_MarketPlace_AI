@@ -1,19 +1,17 @@
+"use client";
+
 import React from "react";
+import Head from "next/head";
 
-const WaitlistPage = () => {
+export default function WaitlistPage() {
   return (
-    <div className="mt-20 fixed w-full">
-      <div className="aspect-video w-full">
-        <iframe
-          style={{ width: "100%" }}
-          height="569"
-          src="https://www.create.xyz/app/6f0f53f1-5134-43b0-afa3-1c6ee2598e57"
-          title="Waiting List Landing Page"
-          frameBorder="0"
-        ></iframe>
+    <>
+      <Head>
+        <title>Waitlist</title>
+      </Head>
+      <div className="mt-20 fixed w-full">
+        <div className="aspect-video w-full">Add iframe here</div>
       </div>
-    </div>
+    </>
   );
-};
-
-export default WaitlistPage;
+}
