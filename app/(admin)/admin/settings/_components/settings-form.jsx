@@ -203,7 +203,7 @@ export const SettingsForm = () => {
     await updateRole(userToPromote.id, "ADMIN");
   };
 
-  // Remove admin privileges
+  // Remove admin privileges for removing
   const handleRemoveAdmin = async () => {
     if (!userToDemote) return;
     await updateRole(userToDemote.id, "USER");
