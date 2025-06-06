@@ -194,7 +194,7 @@ export const SettingsForm = () => {
 
   // Save working hours
   const handleSaveHours = async () => {
-    await saveHours(workingHours);
+    await saveHours(workingHours) ;
   };
 
   // Make user admin
