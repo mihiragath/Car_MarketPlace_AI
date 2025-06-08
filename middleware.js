@@ -35,6 +35,7 @@ const clerk = clerkMiddleware(async (auth, req) => {
     const { redirectToSignIn } = await auth();
     return redirectToSignIn();
   }
+  console.log("middleware compile");
 
   return NextResponse.next();
 });
