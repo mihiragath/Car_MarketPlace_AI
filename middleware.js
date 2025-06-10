@@ -27,6 +27,7 @@ const aj = arcjet({
   ],
 });
 
+
 // Create base Clerk middleware
 const clerk = clerkMiddleware(async (auth, req) => {
   const { userId } = await auth();
