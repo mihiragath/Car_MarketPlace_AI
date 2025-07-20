@@ -5,23 +5,20 @@ import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 
-export async function getAdmin(limit = 3) {
+export async function getAdmin() {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
 
-  try {
-    const cars = await db.car.findMany({
-      where: {
-        featured: true,
-        status: "AVAILABLE",
-      },
-      take: limit,
-    });
-    return cars;
-  } catch (err) {
-    console.error("❌ Error fetching featured cars:", err);
-    throw new Error("Could not fetch featured cars");
+  const user = await db.user.findUnique({
+    where: { clerkUserId: userId },
+  });
+
+  // If user not found in our db or not an admin, return not authorized
+  if (!user || user.role !== "ADMIN") {
+    return { authorized: false, reason: "not-admin" };
   }
+
+  return { authorized: true, user };
 }
 
 /**

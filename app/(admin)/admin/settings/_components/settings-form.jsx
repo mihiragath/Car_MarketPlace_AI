@@ -194,7 +194,7 @@ export const SettingsForm = () => {
 
   // Save working hours
   const handleSaveHours = async () => {
-    await saveHours(workingHours) ;
+    await saveHours(workingHours);
   };
 
   // Make user admin
@@ -203,7 +203,7 @@ export const SettingsForm = () => {
     await updateRole(userToPromote.id, "ADMIN");
   };
 
-  // Remove admin privileges for removing
+  // Remove admin privileges
   const handleRemoveAdmin = async () => {
     if (!userToDemote) return;
     await updateRole(userToDemote.id, "USER");

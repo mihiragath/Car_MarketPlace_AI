@@ -14,7 +14,7 @@ export const CarFilterControls = ({
 
   const filterSections = [
     {
-      id: "make", 
+      id: "make",
       title: "Make",
       options: filters.makes.map((make) => ({ value: make, label: make })),
       currentValue: make,
