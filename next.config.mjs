@@ -9,6 +9,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "vnxpfgobegkxdtgsfsag.supabase.co",
       },
+      {
+        protocol: "https",
+        hostname: "*.supabase.co", // Allow all Supabase subdomains
+      },
+      {
+        protocol: "https",
+        hostname: "aws-0-ap-southeast-1.pooler.supabase.com",
+      },
     ],
   },
 
