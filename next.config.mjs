@@ -1,13 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    serverComponentsHmrCache: false, // defaults to true
+    serverComponentsHmrCache: false, // Disables HMR cache for server components
   },
+
   images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "ymqpkygmownybanldbpq.supabase.co",
+        hostname: "vnxpfgobegkxdtgsfsag.supabase.co", 
       },
     ],
   },
