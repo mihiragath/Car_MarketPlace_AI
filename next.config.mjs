@@ -8,13 +8,39 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "vnxpfgobegkxdtgsfsag.supabase.co", 
+        hostname: "vnxpfgobegkxdtgsfsag.supabase.co",
+      },
+      {
+        protocol: "https",
+        hostname: "img.clerk.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.clerk.dev",
       },
     ],
   },
 
   async headers() {
     return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*",
+          },
+          {
+            key: "Access-Control-Allow-Methods",
+            value: "GET,OPTIONS,PATCH,DELETE,POST,PUT",
+          },
+          {
+            key: "Access-Control-Allow-Headers",
+            value:
+              "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
+          },
+        ],
+      },
       {
         source: "/embed",
         headers: [
