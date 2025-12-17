@@ -85,6 +85,6 @@ It focuses on performance, usability, and real-world features commonly used in p
 
 ---
 
-## 📂 Project Structure
+
 
 
