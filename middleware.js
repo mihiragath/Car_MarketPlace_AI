@@ -8,6 +8,8 @@ const isProtectedRoute = createRouteMatcher([
   "/reservations(.*)",
 ]);
 
+const isPublicRoute = createRouteMatcher(["/sign-in(.*)", "/sign-up(.*)"]);
+
 // Create Arcjet middleware
 const aj = arcjet({
   key: process.env.ARCJET_KEY,
